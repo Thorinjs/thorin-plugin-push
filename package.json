@@ -1,8 +1,10 @@
 {
   "name": "thorin-plugin-push",
   "author": "UNLOQ Systems",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
+    "node-gcm": "0.14.4",
+    "apn": "1.7.8"
   },
   "description": "Thorin.js push notification sending",
   "main": "index.js",
