@@ -1,7 +1,7 @@
 {
   "name": "thorin-plugin-push",
   "author": "UNLOQ Systems",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "dependencies": {
     "node-gcm": "0.14.4",
     "apn": "1.7.8"

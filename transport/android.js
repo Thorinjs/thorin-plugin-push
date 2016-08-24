@@ -79,7 +79,7 @@ module.exports = (thorin, opt, pluginObj) => {
         // TODO: we have to fix this in the future
         if(defaultOpt.rnative === true) {
           let oldData = notificationOpt.data;
-          notificationOpt.data = notificationOpt.notification;
+          notificationOpt.data = notificationOpt.notification || {};
           if(notificationOpt.data.body) {
             notificationOpt.data.message = notificationOpt.data.body;
             delete notificationOpt.data.body;
