@@ -135,6 +135,10 @@ module.exports = (thorin, opt, pluginObj) => {
           note._timer = null;
           clearTimeout(note._tsuccess);
           note._tsuccess = null;
+          if(e && opt.debug) {
+            logger.trace(`Could not deliver ios push`);
+            logger.trace(e);
+          }
           if(e) return done(e);
           done();
         };
@@ -147,7 +151,10 @@ module.exports = (thorin, opt, pluginObj) => {
         }, transmissionTimeout);
         this.client.pushNotification(note, deviceObj);
       } catch (e) {
-        console.log("GOTE", e);
+        if(opt.debug) {
+          logger.trace(`Could not deliver ios push`);
+          logger.trace(e);
+        }
         return done(DEFAULT_ERROR);
       }
     }

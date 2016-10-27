@@ -8,6 +8,7 @@ const initClient = require('./lib/client.js');
 module.exports = function (thorin, opt, pluginName) {
   opt = thorin.util.extend({
     logger: pluginName || 'push',
+    debug: true,
     android: {
       key: null,     // your default GCM API Key
       notification: {

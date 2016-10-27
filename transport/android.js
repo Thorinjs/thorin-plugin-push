@@ -94,6 +94,10 @@ module.exports = (thorin, opt, pluginObj) => {
           registrationTokens: ids
         }, retry, (err, res) => {
           if (err) {
+            if(opt.debug) {
+              logger.trace(`Could not deliver android push`);
+              logger.trace(err);
+            }
             if (err === 401) {
               return reject(thorin.error('PUSH.UNAUTHORIZED', 'Invalid API Key', 401));
             }
