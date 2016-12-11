@@ -24,6 +24,12 @@ module.exports = function (thorin, opt, pluginName) {
     ios: {
       key: null,      // your PEM-encoded certificate key (either path or full certificate content)
       cert: null,     // your PEM-encoded push certificate (either full path or full certificate content)
+      token: {        // if you are using it with your token and not cert.
+        key: null,
+        keyId: null,
+        teamId: null,
+      },
+      topic: 'io.thorin.push',  // your app default topic.
       connectionRetryLimit: 4,
       production: (thorin.env === 'production'),
       notification: {

@@ -77,10 +77,10 @@ module.exports = (thorin, opt, pluginObj) => {
         }
 
         // TODO: we have to fix this in the future
-        if(defaultOpt.rnative === true) {
+        if (defaultOpt.rnative === true) {
           let oldData = notificationOpt.data;
           notificationOpt.data = notificationOpt.notification || {};
-          if(notificationOpt.data.body) {
+          if (notificationOpt.data.body) {
             notificationOpt.data.message = notificationOpt.data.body;
             delete notificationOpt.data.body;
           }
@@ -94,7 +94,7 @@ module.exports = (thorin, opt, pluginObj) => {
           registrationTokens: ids
         }, retry, (err, res) => {
           if (err) {
-            if(opt.debug) {
+            if (opt.debug) {
               logger.trace(`Could not deliver android push`);
               logger.trace(err);
             }
@@ -123,14 +123,14 @@ module.exports = (thorin, opt, pluginObj) => {
             return reject(parseError(res.results[0]));
           }
           let final = [];
-          for(let i=0; i < res.results.length; i++) {
+          for (let i = 0; i < res.results.length; i++) {
             let item = res.results[i];
-            if(item.error) {
+            if (item.error) {
               final.push(parseError(item));
             } else {
               try {
                 final.push(item.message_id);
-              } catch(e) {
+              } catch (e) {
                 final.push(true);
               }
             }
@@ -177,6 +177,20 @@ module.exports = (thorin, opt, pluginObj) => {
       return Promise.reject(thorin.error('PUSH.ANDROID', 'Invalid GCM key', 500, e));
     }
     return Promise.resolve(new AndroidTransport(clientObj));
+  };
+
+  /*
+   * Synchronously create a new client.
+   * */
+  androidObj.createSync = (config) => {
+    let clientObj;
+    try {
+      if (typeof config.key !== 'string' || !config.key) throw new Error('Missing API Key');
+      clientObj = new gcm.Sender(config.key);
+    } catch (e) {
+      return thorin.error('PUSH.ANDROID', 'Invalid GCM key', 500, e)
+    }
+    return new AndroidTransport(clientObj);
   };
 
 
