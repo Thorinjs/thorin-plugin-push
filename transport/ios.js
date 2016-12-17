@@ -213,6 +213,7 @@ module.exports = (thorin, opt, pluginObj) => {
           err = thorin.error('PUSH.IOS.THROTTLE', 'Too many notifications', 400);
           break;
         default:
+          logger.trace(`Received error:`, e);
           err = thorin.error(DEFAULT_ERROR);
       }
     } else {
