@@ -68,9 +68,12 @@ module.exports = (thorin, opt, pluginObj) => {
         }
         note.payload = payload;
         Object.keys(sendOpt).forEach((keyName) => note[keyName] = sendOpt[keyName]);
-        let topicId = (configObj.topic || opt.ios.topic);
-        if (!topicId) return reject(thorin.error('PUSH.SEND', "No push topic was provided", 400));
-        note.topic = topicId;
+
+        if (!note.topic) {
+          let topicId = (configObj.topic || opt.ios.topic);
+          if (!topicId) return reject(thorin.error('PUSH.SEND', "No push topic was provided", 400));
+          note.topic = topicId;
+        }
         clientObj.send(note, ids).then((res) => {
           if (ids.length === 1) {
             // check for single notification
